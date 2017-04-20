@@ -17,15 +17,15 @@ Cukinia works if it offers the following value:
 
 ## Usage
 
-``cukinia [config file]``
+``cukinia [test file]``
 
 ## Basic config
 
-To run Cukinia, create a configuration describing your tests, and
-invoke it. By default, cukinia reads ``/etc/cukinia/cukinia.conf``.
-Alternatively, a config file can be passed to cukinia as its argument.
+To run Cukinia, create a file describing your tests, and
+invoke it. By default, cukinia reads ``/etc/cukinia/cukinia.tests``.
+Alternatively, a test file can be passed to cukinia as its argument.
 
-A cukinia config file supports the following statements:
+A cukinia test file supports the following statements:
 
 ### Test statements
 
@@ -38,7 +38,7 @@ A cukinia config file supports the following statements:
 
 ### Utility statements
 
-* ``cukinia_conf_include <files>``: Includes files as additional config files
+* ``cukinia_test_include <files>``: Includes files as additional tests files
 * ``cukinia_run_dir <directory>``: Runs all executables in directory as individual tests
 * ``cukinia_log <message>``: Logs message to stdout
 
@@ -47,7 +47,7 @@ A cukinia config file supports the following statements:
 * ``$cukinia_tests``: number of tests attempted
 * ``$cukinia_failures``: number of tests that failed
 
-### Example cukinia.conf
+### Example cukinia.tests
 
 ```shell
 
@@ -58,8 +58,8 @@ cukinia_user appuser2
 # If this user exists, then something went wrong
 not cukinia_user baduser
 
-# Those config snippets are deployed by our packages
-cukinia_conf_include /etc/cukinia/conf.d/*.conf
+# Those tests snippets are deployed by our packages
+cukinia_conf_include /etc/cukinia/test.d/*.tests
 
 # Is our embedded webservice up?
 cukinia_http_request http://localhost:8080/sanitycheck

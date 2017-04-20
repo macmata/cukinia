@@ -8,14 +8,13 @@
 # version 2.0, as well as the GNU General Public License version 3, at
 # your own convenience. See LICENSE and LICENSE.GPLv3 for details.
 
-# Default configuration file
-CUKINIA_CONF='/etc/cukinia/cukinia.conf'
-
-# Take config file as first argument
+# Default tests file
+CUKINIA_TEST='/etc/cukinia/cukinia.tests'
+# Take tests file as first argument
 if [ -r "$1" ]; then
-	CUKINIA_CONF="$1"
-	if [ "$(dirname "$CUKINIA_CONF")" = "." ]; then
-		CUKINIA_CONF="./$CUKINIA_CONF"
+	CUKINIA_TEST="$1"
+	if [ "$(dirname "$CUKINIA_TEST")" = "." ]; then
+		CUKINIA_TEST="./$CUKINIA_TEST"
 	fi
 fi
 
@@ -24,9 +23,9 @@ if [ -r /etc/default/cukinia ]; then
 	. /etc/default/cukinia
 fi
 
-# cukinia_conf_include: source additional configs
-# arg: $* - configs to include
-cukinia_conf_include()
+# cukinia_test_include: source additional tests
+# arg: $* - tests to include
+cukinia_test_include()
 {
 	local f
 
@@ -195,7 +194,6 @@ _cukinia_http_request()
 	_cukinia_prepare "Checking http url \"$url\""
 	wget -q -O /dev/null "$url"
 }
-
 _checkfile()
 {
 	local file="$1"
@@ -293,7 +291,7 @@ _cukinia_run_dir()
 cukinia_tests=0
 cukinia_failures=0
 
-cukinia_conf_include "$CUKINIA_CONF"
+cukinia_test_include "$CUKINIA_TEST"
 
 [ $cukinia_failures -eq 0 ] && exit 0 || exit 1
 
